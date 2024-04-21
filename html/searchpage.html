@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC" -//W3C//DTD HTML 4.01 Transitional//EN">
+<!--  
+
+
+  -->
+<html>
+
+<head>
+
+	<meta content="text/html; charset=UTF-8" http-equiv="content-type">
+	<meta http-equiv="expires" content="0">
+
+	<title> search page </title>
+
+    
+	<style media="screen" type="text/css">
+		HTML {
+			ZZfont-size: calc((1vh + 1vw)/2);
+		}
+
+		body {
+			zzcolumn-width: 25ex;
+			ZZfont-size: 16px;
+			ZZfont-size: calc(16px + 6 * ((100vw - 320px) / 680));
+			zzfont-size: max(16px, min(10vw, 2rem));
+			overflow-wrap: break-word;
+			margin: 1ex;
+		}
+
+		@media screen and (min-width: 320px) {
+			body {
+				ZZfont-size: calc(16px + 6 * ((100vw - 320px) / 680));
+			}
+		}
+
+		@media screen and (min-width: 125ex) {
+			body {
+				ZZcolumn-width: 25rem;
+				ZZfont-size: 22px;
+			}
+		}
+
+		div {
+			margin-bottom: 1.1ex;
+		}
+
+		a {
+			ZZfont-size: 2rem;
+		}
+
+		input,
+		textarea,
+		button {
+			font-size: 3rem;
+			width: 90%;
+			margin: 1rem;
+		}
+
+		.center {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.bg2 {
+			background-color: rgb(191, 227, 250);
+		}
+
+		.hidden {
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	<h1> search directly on a specific search engine </h1>
+
+
+	<div class="bg2">
+		<div class="center">
+			<input id="searchtext" name="searchtext" type="text" class="bg2 clickable" placeholder="text to search" autocorrect="off" autocapitalize="none" autocomplete="off" />
+		</div>
+		<div> search this pattern on ... </div>
+
+		<h4> search engines </h4>
+		<div><a class="search" href='https://de.wikipedia.org/wiki/Special:Search?search='> Wikipedia </a></div>
+		<div><a class="search" href='https://duckduckgo.com/?q='> DuckDuckGo </a></div>
+		<div><a class="search" href='https://www.startpage.com/sp/search?query='> Startpage  </a></div>
+		<div><a class="search" href='https://metager.de/meta/meta.ger3?eingabe='> MetaGer  </a></div>
+		<div><a class="search" href='https://www.google.com/search?q='> Google  </a></div>
+
+		<h4> Shops </h4>
+
+		<div><a class="search" href="https://www.amazon.de/s?k="> Amazon </a></div>
+		<div><a class="search" href="https://www.ebay.de/sch/i.html?_nkw="> ebay </a></div>
+
+
+		<h4> media </h4>
+		<div><a class="search" href='https://www.youtube.com/results?search_query='> YouTube </a></div>
+		<div><a class="search" href='https://open.spotify.com/search/'> Spotify </a></div>
+		<div><a class="search" href='https://www.rottentomatoes.com/search?search='> Rotten-Tomatoes </a></div>
+
+		<h4> Location </h4>
+		<div><a class="search" href='https://www.openstreetmap.org/search?query='> OpenStreetmap </a></div>
+		<div><a class="search" href='https://www.google.com/maps/search/'> Google Maps </a></div>
+
+		<h4> other </h4>
+		<div><a class="search" href='https://pubmed.ncbi.nlm.nih.gov/?term='> pubmed (Medizin) </a></div>
+		<div><a class="search" href='https://www.netdoktor.de/search/?q='> netdoktor </a></div>
+		<div><a class="search hidden" href='https://www.yelp.de/search?&find_loc=Düsseldorf&find_desc='> Yelp (must add location first) </a></div>
+		<div><a class="search hidden" href='https://www.spektrum.de/lexikon/ernaehrung/#/suche/q/'> Ernährung </a></div>
+		<div><a class="search hidden" href='https://www.spektrum.de/lexikon/astronomie/#/suche/q/'> Astronomie </a></div>
+
+		
+		<div><a class="search" href='https://github.com/search?type=repositories&q='> Github Repository </a></div>
+
+
+		<div><a class="search" href=''>  </a></div>
+
+		<script>
+			var searchtext = "";
+			var dom = {
+				id: function (id) { return document.getElementById(id); }
+			}
+			function setInfo() {
+				var txt = "Screen: " + window.screen.width + " x " + window.screen.height + " px";
+				txt += "<br/>Window: " + window.innerWidth + " x " + window.innerHeight + " px";
+				dom.id("info").innerHTML = txt;
+			}
+			addEventListener("resize", (event) => {
+				setInfo();
+			});
+			dom.id("searchtext").addEventListener("change", function (e) {
+				searchtext = e.target.value;
+			}, false);
+			document.body.querySelectorAll('.search').forEach((el) => {
+				el.addEventListener('click', function (event) {
+					var url = event.target.href + searchtext;
+					console.log(url);
+					event.preventDefault();
+					window.location = url;
+				}, false)
+			});
+			window.addEventListener("load", (event) => {
+				//console.log("page is fully loaded");
+				setInfo();
+			});
+
+		</script>
+	</div>
+
+
+
+</body>
+
+</html>
