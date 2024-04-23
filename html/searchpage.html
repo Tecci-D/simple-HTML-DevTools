@@ -12,7 +12,7 @@
 
 	<title> search page </title>
 
-    
+
 	<style media="screen" type="text/css">
 		HTML {
 			ZZfont-size: calc((1vh + 1vw)/2);
@@ -45,7 +45,7 @@
 		}
 
 		a {
-			ZZfont-size: 2rem;
+			margin: 1rem;
 		}
 
 		input,
@@ -85,14 +85,17 @@
 		<h4> search engines </h4>
 		<div><a class="search" href='https://de.wikipedia.org/wiki/Special:Search?search='> Wikipedia </a></div>
 		<div><a class="search" href='https://duckduckgo.com/?q='> DuckDuckGo </a></div>
-		<div><a class="search" href='https://www.startpage.com/sp/search?query='> Startpage  </a></div>
-		<div><a class="search" href='https://metager.de/meta/meta.ger3?eingabe='> MetaGer  </a></div>
-		<div><a class="search" href='https://www.google.com/search?q='> Google  </a></div>
+		<div><a class="search" href='https://www.startpage.com/sp/search?query='> Startpage </a></div>
+		<div><a class="search" href='https://metager.de/meta/meta.ger3?eingabe='> MetaGer </a></div>
+		<div><a class="search" href='https://www.google.com/search?q='> Google </a></div>
 
 		<h4> Shops </h4>
 
 		<div><a class="search" href="https://www.amazon.de/s?k="> Amazon </a></div>
 		<div><a class="search" href="https://www.ebay.de/sch/i.html?_nkw="> ebay </a></div>
+
+		https://discover.gumroad.com/?query=
+
 
 
 		<h4> media </h4>
@@ -104,32 +107,46 @@
 		<div><a class="search" href='https://www.openstreetmap.org/search?query='> OpenStreetmap </a></div>
 		<div><a class="search" href='https://www.google.com/maps/search/'> Google Maps </a></div>
 
-		<h4> other </h4>
-		<div><a class="search" href='https://pubmed.ncbi.nlm.nih.gov/?term='> pubmed (Medizin) </a></div>
-		<div><a class="search" href='https://www.netdoktor.de/search/?q='> netdoktor </a></div>
-		<div><a class="search hidden" href='https://www.yelp.de/search?&find_loc=Düsseldorf&find_desc='> Yelp (must add location first) </a></div>
-		<div><a class="search hidden" href='https://www.spektrum.de/lexikon/ernaehrung/#/suche/q/'> Ernährung </a></div>
-		<div><a class="search hidden" href='https://www.spektrum.de/lexikon/astronomie/#/suche/q/'> Astronomie </a></div>
+		<h4> </h4>other </h4>
+		<div id="appendhere"> </div>
 
 		
-		<div><a class="search" href='https://github.com/search?type=repositories&q='> Github Repository </a></div>
-
-
-		<div><a class="search" href=''>  </a></div>
+		<div><a class="search" href=''> </a></div>
 
 		<script>
 			var searchtext = "";
 			var dom = {
-				id: function (id) { return document.getElementById(id); }
+				id: function (id) { return document.getElementById(id); },
+				createElementFromHTML: function (htmlString) {
+					var div = document.createElement('div');
+					div.innerHTML = htmlString.trim();
+					// Change this to div.childNodes to support multiple top-level nodes.
+					return div.firstChild;
+				}
 			}
-			function setInfo() {
-				var txt = "Screen: " + window.screen.width + " x " + window.screen.height + " px";
-				txt += "<br/>Window: " + window.innerWidth + " x " + window.innerHeight + " px";
-				dom.id("info").innerHTML = txt;
-			}
-			addEventListener("resize", (event) => {
-				setInfo();
+
+			// list of url where search key is appended
+			var list = [
+				'https://dokuwiki.nausch.org/doku.php/pwd?do=search&q=',
+				'https://stackoverflow.com/search?q=',
+				'https://libgen.is/search.php?open=0&res=25&view=simple&phrase=1&column=def&req=',
+				'https://stackoverflow.com/search?q=test',
+				'https://pubmed.ncbi.nlm.nih.gov/?term=',
+				'https://www.netdoktor.de/search/?q=',
+				'https://github.com/search?type=repositories&q=',
+				// 'https://www.yelp.de/search?&find_loc=Düsseldorf&find_desc='
+				// 'https://www.spektrum.de/lexikon/ernaehrung/#/suche/q/'
+				// 'https://www.spektrum.de/lexikon/astronomie/#/suche/q/'
+			];
+
+			list.forEach(function (v) {
+				var label = v.slice(8, v.indexOf("/", 9));
+				var html = `<div><a class='search' href='${v}'> ${label} </a></div>`;
+				//dom.id("appendhere").append(el); 
+				dom.id("appendhere").insertAdjacentHTML('afterend', html);
 			});
+
+
 			dom.id("searchtext").addEventListener("change", function (e) {
 				searchtext = e.target.value;
 			}, false);
@@ -143,7 +160,7 @@
 			});
 			window.addEventListener("load", (event) => {
 				//console.log("page is fully loaded");
-				setInfo();
+
 			});
 
 		</script>
