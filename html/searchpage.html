@@ -9,6 +9,7 @@
 
 	<meta content="text/html; charset=UTF-8" http-equiv="content-type">
 	<meta http-equiv="expires" content="0">
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
 
 	<title> search page </title>
 
@@ -90,13 +91,8 @@
 		<div><a class="search" href='https://www.google.com/search?q='> Google </a></div>
 
 		<h4> Shops </h4>
-
 		<div><a class="search" href="https://www.amazon.de/s?k="> Amazon </a></div>
 		<div><a class="search" href="https://www.ebay.de/sch/i.html?_nkw="> ebay </a></div>
-
-		
-
-
 
 		<h4> media </h4>
 		<div><a class="search" href='https://www.youtube.com/results?search_query='> YouTube </a></div>
@@ -131,7 +127,6 @@
 				'https://dokuwiki.nausch.org/doku.php/pwd?do=search&q=',
 				'https://stackoverflow.com/search?q=',
 				'https://libgen.is/search.php?open=0&res=25&view=simple&phrase=1&column=def&req=',
-				'https://stackoverflow.com/search?q=test',
 				'https://pubmed.ncbi.nlm.nih.gov/?term=',
 				'https://www.netdoktor.de/search/?q=',
 				'https://github.com/search?type=repositories&q=',
@@ -153,15 +148,14 @@
 			}, false);
 			document.body.querySelectorAll('.search').forEach((el) => {
 				el.addEventListener('click', function (event) {
-					var url = event.target.href + searchtext;
+					var url = event.target.href + searchtext; // append searchtext
 					console.log(url);
 					event.preventDefault();
-					window.location = url;
+					window.location = url; // call url
 				}, false)
 			});
 			window.addEventListener("load", (event) => {
 				//console.log("page is fully loaded");
-
 			});
 
 		</script>
